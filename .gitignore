@@ -1,2 +1,9 @@
 .DS_Store
-scripts/node_modules/**/*
+# ignore files in node_modules
+node_modules
+# ignore files change in build folder
+build
+# ignore files change in release folder
+release
+# ignore files change in log folder
+log

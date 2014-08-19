@@ -11,6 +11,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-notify');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-less');
 
   /**
    * Load the custom project configuration file
@@ -39,7 +40,7 @@ module.exports = function(grunt) {
      */
     clean: {
       development:['<%= project_config.build_dir %>'],
-      production:['<%= project_config.production_dir %>'],
+      production:['<%= project_config.production_dir %>']
     },
 
     /**
@@ -54,7 +55,7 @@ module.exports = function(grunt) {
       options: {
         force: true,
         reporter: 'checkstyle',
-        reporterOutput: '<%= project_config.log %>/jshint-reporter.xml'
+        reporterOutput: '<%= project_config.log_dir %>jshint-reporter.xml'
       },
       app_js: ['<%= project_config.app_files.app_js.src %>']
     },
@@ -66,7 +67,7 @@ module.exports = function(grunt) {
     concat:{
       development: {
         options:{
-          expend: true
+          banner: '<%= meta.banner %>'
         },
         src: ['<%= project_config.app_files.app_js.src %>'],
         dest: '<%= project_config.app_files.app_js.dest %>'
@@ -82,16 +83,41 @@ module.exports = function(grunt) {
         options: {
           compress: false
         },
-        files: {
+        files: [{
           '<%= project_config.app_files.less.dest %>': '<%= project_config.app_files.less.src %>'
-        }
+        }]
       },
       production: {
         options: {
           compress: true
         },
-        files: {
+        files: [{
           '<%= project_config.app_files.less.dest %>': '<%= project_config.app_files.less.src %>'
+        }]
+      }
+    },
+
+    /**
+     * `copy`: Copy files and folders
+     * https://npmjs.org/package/grunt-contrib-copy
+     */
+    copy: {
+      development:{
+        files:[
+          {
+            expand: true,
+            cwd: '<%= project_config.source_dir %>',
+            src: ['*.html','<%= project_config.app_files.asset %>', '<%= project_config.vendor%>'],
+            dest: '<%= project_config.build_dir %>'
+          }
+        ]
+      },
+      production:{
+        files: {
+          expand: true,
+          cwd: '<%= project_config.build_dir %>',
+          src: ['**/*'],
+          dest: '<%= project_config.production_dir %>'
         }
       }
     },
@@ -109,54 +135,21 @@ module.exports = function(grunt) {
             beautify: true,
             preserveComments: true
         },
-        files:{
-          src: '<%= project_config.app_files.app_js.dest',
-          dest: '<%= project_config.app_files.app_js.dest'
-        }
+        files:[{
+          src: ['<%= project_config.build_dir %>js/<%= pkg.name %>.js'],
+          dest: '<%= project_config.build_dir %>js/<%= pkg.name %>.min.js'
+        }]
       },
       production: {
         options: {
             mangle: false,
             preserveComments: 'some',
-            sourceMap: true
+            sourceMap: false
         },
-        files: {
-          src: '<%= project_config.app_files.app_js.dest',
-          dest: '<%= project_config.app_files.app_js.dest'
-        }
-      }
-    },
-
-    /**
-     * `copy`: Copy files and folders
-     * https://npmjs.org/package/grunt-contrib-copy
-     */
-    copy: {
-      development:{
-        files:[
-        {
-          expend: true,
-          src: ['<%= project_config.source_dir %>/*'],
-          dest: '<%= project_config.build_dir %>'
-        },
-        {
-          expend: true,
-          src: ['<%= project_config.vendor %>'],
-          dest: '<%= project_config.build_dir %>/vendor'
-        },
-        {
-          expend: true,
-          src: ['<%= project_config.app_files.asset %>'],
-          dest: '<%= project_config.build_dir %>/asset'
-        }
-        ]
-      },
-      production:{
-        files: {
-          expend: true,
-          src: ['<%= project_config.build_dir %>/**/*'],
-          dest: '<%= project_config.production_dir %>'
-        }
+        files:[{
+          src: ['<%= project_config.build_dir %>js/<%= pkg.name %>.js'],
+          dest: '<%= project_config.build_dir %>js/<%= pkg.name %>.min.js'
+        }]
       }
     },
 
@@ -165,10 +158,13 @@ module.exports = function(grunt) {
      * https://www.npmjs.org/package/grunt-contrib-connect
      */
     connect: {
-      development: {
+      server: {
         options: {
-          port: 9001,
-          base: '<%= project_config.build_dir %>'
+          port: 1234,
+          hostname: '127.0.0.1',
+          open: true,
+          base: '<%= project_config.build_dir %>',
+          keepalive: true
         }
       },
       production: {
@@ -196,6 +192,20 @@ module.exports = function(grunt) {
           message: 'Server is ready! http://localhost:9001'
         }
       }
+    },
+
+    /**
+     * `watch`: Run predefined tasks whenever watched file patterns are added, changed or deleted
+     * https://npmjs.org/package/grunt-contrib-watch
+     */
+    watch:{
+      development:{
+        options:{
+          atBegin:true
+        },
+        files:['<%= project_config.source_dir %>**/*'],
+        tasks:['build']
+      }
     }
       
   };
@@ -204,6 +214,6 @@ module.exports = function(grunt) {
   grunt.initConfig(grunt.util._.extend(commonConfig, projectConfig));
 
   grunt.registerTask('default', ['build']);
-  grunt.registerTask('build', ['clean:development', 'jshint', 'concat', 'less:development', 'copy:development', 'uglify:development', 'connect:development', 'notify:development']);
+  grunt.registerTask('build', ['clean:development', 'jshint', 'concat', 'less:development', 'copy:development', 'uglify:development', 'connect:server', 'notify:development']);
 
 };

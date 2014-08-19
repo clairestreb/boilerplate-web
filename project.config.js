@@ -4,24 +4,24 @@ module.exports = {
 		 * __Required__
 		 * `production_dir` this folder store all compiled files that is ready for **Release**.
 		 */
-		production_dir: '../release',
+		production_dir: 'release/',
 
 		/**
 		 * __Required__
 		 * `build_dir` this folder store all compiled JavaScript, CSS, HTML, images... sources.
 		 */
-		build_dir: '../build',
+		build_dir: 'build/',
 
 		/**
 		 * __Required__
 		 * `source_dir` this folder store all compiled JavaScript, CSS, HTML, images... sources.
 		 */
-		source_dir: '../src',
+		source_dir: 'src/',
 
 		/**
 		 * `log` this folder store all the log files
 		 */
-		log_dir: 'log',
+		log_dir: 'log/',
 
 		/**
 		 * __Required__
@@ -33,8 +33,8 @@ module.exports = {
 			 * JavaScript files, you can configure it based on your project
 			 */
 			app_js: {
-				src: ['<%= source_dir %>/js/**/*.js', '!vendor/**/*'],
-				dest: '<%= build_dir %>/js/<%= pkg.name %>.js'
+				src: ['<%= project_config.source_dir %>js/**/*.js', '!vendor/**/*'],
+				dest: '<%= project_config.build_dir %>js/<%= pkg.name %>.js'
 			},
 
 			/**
@@ -42,21 +42,21 @@ module.exports = {
 			 * Less css files
 			 */
 			less: {
-				src: '<%= source_dir %>/asset/less/<%= pkg.name %>.less',
-				dest: '<%= build_dir %>/asset/css/<%= pkg.name %>.css'
+				src: '<%= project_config.source_dir %>asset/less/<%= pkg.name %>.less',
+				dest: '<%= project_config.build_dir %>asset/css/<%= pkg.name %>.min.css'
 			},
 
 			/**
 			 * __Required__
 			 * Resource files, such as: images, fonts...
 			 */
-			asset: ['<%= source_dir %>/asset/**/*', '!<%= source_dir %>/asset/less/*', '!<%= source_dir %>/asset/css/*']
+			asset: ['asset/**', '!asset/less/**', '!asset/css/**']
 		},
 
 		/**
 		 * __Required__
 		 * Third part libraries depended by this project
 		 */
-		vendor: ['<%= source_dir %>/vendor/**/*']
+		vendor: ['vendor/**/*']
 	}
 };
