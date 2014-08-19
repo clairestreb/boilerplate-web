@@ -46,8 +46,6 @@ This application is developed by Shaoke Xu. You can use following way to contact
 ## License
 **Project Name** is available under the MIT license. See the LICENSE file for more info.
 
-expand: true,
-          cwd: '<%= project_config.build_dir %>',
 
 
 

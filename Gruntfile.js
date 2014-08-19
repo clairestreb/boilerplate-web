@@ -162,9 +162,8 @@ module.exports = function(grunt) {
         options: {
           port: 1234,
           hostname: '127.0.0.1',
-          open: true,
           base: '<%= project_config.build_dir %>',
-          keepalive: true
+          open: true
         }
       },
       production: {
@@ -191,6 +190,18 @@ module.exports = function(grunt) {
           title: 'Generate release build',
           message: 'Server is ready! http://localhost:9001'
         }
+      },
+      build:{
+        options: {
+          title: 'Build success',
+          message: 'Build project successful!'
+        }
+      },
+      startServer:{
+        options: {
+          title: 'Start Server',
+          message: 'Server is ready! You can go to http://localhost:9001'
+        }
       }
     },
 
@@ -200,9 +211,6 @@ module.exports = function(grunt) {
      */
     watch:{
       development:{
-        options:{
-          atBegin:true
-        },
         files:['<%= project_config.source_dir %>**/*'],
         tasks:['build']
       }
@@ -213,7 +221,8 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig(grunt.util._.extend(commonConfig, projectConfig));
 
+  grunt.registerTask('development',['build', 'connect:server', 'notify:startServer', 'watch'] );
   grunt.registerTask('default', ['build']);
-  grunt.registerTask('build', ['clean:development', 'jshint', 'concat', 'less:development', 'copy:development', 'uglify:development', 'connect:server', 'notify:development']);
+  grunt.registerTask('build', ['clean:development', 'jshint', 'concat', 'less:development', 'copy:development', 'uglify:development', 'notify:build']);
 
 };
