@@ -22,29 +22,32 @@ Make sure you all ready install [Grunt](http://gruntjs.com) and [jekyll](http://
 
 > To get start, you can modify them after you familiar
 
-
 ## Folder Structure
 
 ```
 project-boilerplate/
-
+	|-- build/
+	|-- docs/
+		|-- api/
+	|-- log/
+	|-- src/
+	|-- test/
+	|-- Gruntfile.js
+	|-- LICENSE
+	|-- package.json
+	|-- project.config.js
+	|-- README.md
 ```
-
-## Requirements
-_Requirement of this project_
-
-## Resources
-_If use third part library, add third part library_
 
 ## Contact
 This application is developed by Shaoke Xu. You can use following way to contact me:
 
-**Website**: <http://shaoke.me>
+**Website**: [http://shaoke.me](http://shaoke.me)
 
 **Email**: [ shaokexu@gmail.com ](shaokexu@gmail.com)
 
 ## License
-**Project Name** is available under the MIT license. See the LICENSE file for more info.
+**project boilerplate** is available under the MIT license. See the LICENSE file for more info.
 
 
 

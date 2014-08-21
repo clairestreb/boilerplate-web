@@ -7,3 +7,5 @@ build
 release
 # ignore files change in log folder
 log
+# ignore generate api documents
+docs/api

@@ -12,6 +12,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-notify');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
+  grunt.loadNpmTasks('grunt-jsdoc');
 
   /**
    * Load the custom project configuration file
@@ -201,6 +203,31 @@ module.exports = function(grunt) {
         options: {
           title: 'Start Server',
           message: 'Server is ready! You can go to http://localhost:9001'
+        }
+      }
+    },
+
+    /**
+     * `qunit`: Run QUnit unit tests in a headless PhantomJS instance.
+     * https://www.npmjs.org/package/grunt-contrib-qunit
+     */
+    qunit:{
+      all:['test/unit/qunit.html']
+    },
+
+    /**
+     * `jsdoc`: Integrates jsdoc3 generation into your Grunt build
+     * https://www.npmjs.org/package/grunt-jsdoc
+     */
+    jsdoc:{
+      dist:{
+        src:['<%= project_config.app_files.app_js.src%>'],
+        dest: 'docs/api/',
+        options:{
+          verbose: true,
+          configure: 'jsdoc-jaguar/conf.json',
+          template: 'jsdoc-jaguar/',
+          'private': false
         }
       }
     },

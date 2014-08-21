@@ -33,7 +33,7 @@ module.exports = {
 			 * JavaScript files, you can configure it based on your project
 			 */
 			app_js: {
-				src: ['<%= project_config.source_dir %>js/**/*.js', '!vendor/**/*'],
+				src: ['<%= project_config.source_dir %>js/project-boilerplate.js','<%= project_config.source_dir %>js/*.js', '!vendor/**/*'],
 				dest: '<%= project_config.build_dir %>js/<%= pkg.name %>.js'
 			},
 
