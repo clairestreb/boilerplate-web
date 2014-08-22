@@ -9,7 +9,7 @@
 		"default": {
 			"outputSourceFiles" : true
 		},
-		"applicationName": "Demo",
+		"applicationName": "Project Boilerplate",
 		"disqus": "",
 		"googleAnalytics": "",
 		"openGraph": {
