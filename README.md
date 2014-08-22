@@ -11,25 +11,34 @@ A professional project template for easily create a professional front-end proje
 * A document template with [jekyll](http://jekyllrb.com)
 
 ## Get Started
-Make sure you all ready install [Grunt](http://gruntjs.com) and [jekyll](http://jekyllrb.com) in your computer.
+Configure your environment:
 
-* Checkout this project
-* Modify `name` field in `package.json` to what you want, I suggest to modify to your project's name
-* Modify `version` field in `package.json` to what you want, this can be used to name or comment your compiled js, css files.
-* Modify `homepage` filed in `package.json`. If you don't have a homepage, you can remove it
-* Modify `author` filed in `package.json`. If you don't want to show author, you can keep it empty
-* Modify `license` field in `package.json`.
+1. node.js
+2. java
 
-> To get start, you can modify them after you familiar
+#### Step
+1. Checkout [https://github.com/shaoke/project-boilerplate.git](https://github.com/shaoke/project-boilerplate.git)
+2. Run `npm install --save-dev`
+3. Run `grunt`. This command will run following task: `clean:development`, `jshint`, `concat`, `less:development`, `copy:development`, `uglify:development`, `notify:build`
+4. After command running successful, it generates build files to `build` folder
+
+You also can run following grunt tasks:
+
+1. `grunt development`: this is used for when you develop your project. It will start a server and watch files change
+2. `grunt release`: this is used to generate release version
+3. `grunt api-doc`: this is used to generate API document
 
 ## Folder Structure
 
 ```
 project-boilerplate/
 	|-- build/
+	|-- release/
 	|-- docs/
 		|-- api/
 	|-- log/
+	|-- jsdoc-docstrap/
+	|-- jsdoc-jaguar/
 	|-- src/
 	|-- test/
 	|-- Gruntfile.js
@@ -38,6 +47,27 @@ project-boilerplate/
 	|-- project.config.js
 	|-- README.md
 ```
+
+* `jsdoc-docstrap` and `jsdoc-jaguar` is a [jsdoc](http://usejsdoc.org) template
+* `src` stores source code of this project
+* `test` stores all test files
+* `docs` stores all document about this project, includes api and developer documents 
+* `build` and `release` will be created when you running grunt command, stores build files and release files
+
+## Custom
+#### Modify `package.json`
+* Modify `name` property to what you want, I suggest to modify to your project's name
+* Modify `version` property to what you want, this can be used to name or comment your compiled js, css files.
+* Modify `homepage` property. If you don't have a homepage, you can remove it
+* Modify `author` property. If you don't want to show author, you can keep it empty
+* Modify `license` property.
+
+#### Modify `project.config.js`
+* All the `__Required__` property need you to modify if your folder isn't same with original value
+
+#### Modify `Gruntfile.js`
+You can add, modify or remove grunt tasks.
+
 
 ## Contact
 This application is developed by Shaoke Xu. You can use following way to contact me:

@@ -19,9 +19,14 @@ module.exports = {
 		source_dir: 'src/',
 
 		/**
-		 * `log` this folder store all the log files
+		 * `log_dir` this folder store all the log files
 		 */
 		log_dir: 'log/',
+
+		/**
+		 * `api_dir` store api documents
+		 */
+		api_dir: 'docs/api/',
 
 		/**
 		 * __Required__

@@ -115,12 +115,12 @@ module.exports = function(grunt) {
         ]
       },
       production:{
-        files: {
+        files: [{
           expand: true,
           cwd: '<%= project_config.build_dir %>',
           src: ['**/*'],
           dest: '<%= project_config.production_dir %>'
-        }
+        }]
       }
     },
 
@@ -160,18 +160,19 @@ module.exports = function(grunt) {
      * https://www.npmjs.org/package/grunt-contrib-connect
      */
     connect: {
-      server: {
+      project: {
         options: {
-          port: 1234,
+          port: 9000,
           hostname: '127.0.0.1',
           base: '<%= project_config.build_dir %>',
           open: true
         }
       },
-      production: {
+      api: {
         options: {
           port: 9001,
-          base: '<%= project_config.production_dir %>'
+          base: '<%= project_config.api_dir %>',
+          open: true
         }
       }
     },
@@ -181,27 +182,27 @@ module.exports = function(grunt) {
      * https://github.com/dylang/grunt-notify
      */
     notify: {
-      development: {
+      release: {
         options: {
-          title: 'Generate develop build',  // optional
-          message: 'Server is Ready! http://localhost:9001', //required
-        }
-      },
-      production: {
-        options: {
-          title: 'Generate release build',
-          message: 'Server is ready! http://localhost:9001'
+          title: 'Release success',
+          message: 'Generate release build success. Please get it in "release" folder.'
         }
       },
       build:{
         options: {
           title: 'Build success',
-          message: 'Build project successful!'
+          message: 'Build project successful. Please get it in "build" folder'
         }
       },
-      startServer:{
+      project:{
         options: {
-          title: 'Start Server',
+          title: 'Start project Server',
+          message: 'Server is ready! You can go to http://localhost:9000'
+        }
+      },
+      api:{
+        options: {
+          title: 'Start API Document server',
           message: 'Server is ready! You can go to http://localhost:9001'
         }
       }
@@ -222,12 +223,12 @@ module.exports = function(grunt) {
     jsdoc:{
       dist:{
         src:['<%= project_config.app_files.app_js.src%>'],
-        dest: 'docs/api/',
+        dest: '<%= project_config.api_dir %>',
         options:{
           verbose: true,
           configure: 'jsdoc-jaguar/conf.json',
           template: 'jsdoc-jaguar/',
-          'private': false
+          private: false
         }
       }
     },
@@ -248,8 +249,10 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig(grunt.util._.extend(commonConfig, projectConfig));
 
-  grunt.registerTask('development',['build', 'connect:server', 'notify:startServer', 'watch'] );
+  grunt.registerTask('development',['build', 'connect:project', 'notify:project', 'watch'] );
   grunt.registerTask('default', ['build']);
   grunt.registerTask('build', ['clean:development', 'jshint', 'concat', 'less:development', 'copy:development', 'uglify:development', 'notify:build']);
+  grunt.registerTask('release', ['clean:development', 'clean:production', 'jshint', 'concat', 'less:production', 'copy:development', 'uglify:production', 'copy:production', 'notify:release']);
+  grunt.registerTask('api-doc', ['jsdoc', 'connect:api', 'notify:api']);
 
 };
