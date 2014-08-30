@@ -37,8 +37,9 @@ project-boilerplate/
 	|-- docs/
 		|-- api/
 	|-- log/
-	|-- jsdoc-docstrap/
-	|-- jsdoc-jaguar/
+	|-- jsdoc-template/
+            |-- jsdoc-docstrap/
+            |-- jsdoc-jaguar/
 	|-- src/
 	|-- test/
 	|-- Gruntfile.js
@@ -52,6 +53,7 @@ project-boilerplate/
 * `src` stores source code of this project
 * `test` stores all test files
 * `docs` stores all document about this project, includes api and developer documents 
+* `jsdoc-template` stores jsdoc templates
 * `build` and `release` will be created when you running grunt command, stores build files and release files
 
 ## Custom
