@@ -171,6 +171,7 @@ module.exports = function(grunt) {
       api: {
         options: {
           port: 9001,
+		  hostname: '127.0.0.1',
           base: '<%= project_config.api_dir %>',
           open: true
         }
@@ -226,8 +227,8 @@ module.exports = function(grunt) {
         dest: '<%= project_config.api_dir %>',
         options:{
           verbose: true,
-          configure: 'jsdoc-jaguar/conf.json',
-          template: 'jsdoc-jaguar/',
+          configure: 'jsdoc-template/jsdoc-jaguar/conf.json',
+          template: 'jsdoc-template/jsdoc-jaguar/',
           private: false
         }
       }
@@ -253,6 +254,6 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['build']);
   grunt.registerTask('build', ['clean:development', 'jshint', 'concat', 'less:development', 'copy:development', 'uglify:development', 'notify:build']);
   grunt.registerTask('release', ['clean:development', 'clean:production', 'jshint', 'concat', 'less:production', 'copy:development', 'uglify:production', 'copy:production', 'notify:release']);
-  grunt.registerTask('api-doc', ['jsdoc', 'connect:api', 'notify:api']);
+  grunt.registerTask('api-doc', ['jsdoc', 'notify:api']);
 
 };
