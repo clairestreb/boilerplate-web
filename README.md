@@ -1,3 +1,9 @@
+I get so excited by:
+- Organization (don't worry, I have mostly tamed my OCD)
+- Standardization (with the ability to customize)
+- Not reinventing the wheel (I cloned this)
+------------------------------------------------------------------------
+
 # project-boilerplate
 
 A professional project template for easily create a professional front-end project. This boilerplate includes basic process for you project, such as: build(grunt), documents(jsdoc), validation(jshint)
